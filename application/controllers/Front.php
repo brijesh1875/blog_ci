@@ -86,7 +86,17 @@ class Front extends CI_Controller {
 */
 	public function index()
 	{
-		$this->load_view("home");
+		$posts= $this->frontmodel->fetch_blog("id, title, description, added_on",['status'=>1], 'added_on', 'DESC');
+		foreach($posts as $post)
+		{
+			$limited = $this->char_limit($post->description,150);
+			$post->description = $limited;
+			$strdate = $this->date_convert($post->added_on);
+			$post->added_on = $strdate;
+		}
+
+		$data['posts']=$posts;
+		$this->load_view_args("home",$data);
 	}
 	public function home()
 	{
@@ -101,7 +111,6 @@ class Front extends CI_Controller {
 		}
 
 		$data['posts']=$posts;
-
 		$this->load_view_args("home",$data);	
 	}
 	public function about()
@@ -116,7 +125,12 @@ class Front extends CI_Controller {
 		}
 		else
 		{
-			die("posts are loading");
+			$post = $this->frontmodel->fetch_blog("*",["id"=>$id]);
+			$strdate = $this->date_convert($post[0]->added_on);
+			$post[0]->added_on = $strdate;
+
+			$data['post'] = $post;
+			$this->load_view_args("post",$data);
 		}
 	}
 	public function contact()
