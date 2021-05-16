@@ -29,7 +29,7 @@
                                 </a>
                             </li>
                         </ul>
-                        <p class="copyright text-muted">Copyright &copy; Your Website 2021</p>
+                        <p class="copyright text-muted">Copyright &copy; Agriculture 2021 Developed by Brijesh</p>
                     </div>
                 </div>
             </div>

@@ -27,29 +27,37 @@ class Front extends CI_Controller {
 
 	private function load_view($controller)
 	{
-		$this->load->view('header');
+		if($controller=='home')
+			$title['title'] = 'Agriculture | Home';
+		else if($controller == 'about')
+			$title['title'] = 'Agriculture | About us';
+		else if($controller== 'contact')
+			$title['title'] = 'Agriculture | Contact us';
+		else
+			$title['title'] = '';
+		$this->load->view('header',$title);
 		$this->load->view($controller);
 		$this->load->view('footer');
 	}
 	private function load_view_args($controller,$args)
 	{
-		$this->load->view("header");
+		if($controller=='home')
+			$title['title'] = 'Agriculture | Home';
+		else if($controller == 'about')
+			$title['title'] = 'Agriculture | About us';
+		else if($controller== 'contact')
+			$title['title'] = 'Agriculture | Contact us';
+		else if($controller=='post')
+		{
+
+			$title['title'] = $args['post'][0]->title;
+			
+		}
+		else
+			$title['title'] = '';
+		$this->load->view("header",$title);
 		$this->load->view($controller,$args);
 		$this->load->view("footer");
-	}
-	private function load_view_with_left($controller)
-	{
-		$this->load->view('header');
-		$this->load->view('left');
-		$this->load->view($controller);
-		$this->load->view('footer');
-	}
-	private function load_view_args_with_left($controller,$args)
-	{
-		$this->load->view('header');
-		$this->load->view('left');
-		$this->load->view($controller,$args);
-		$this->load->view('footer');
 	}
 	private function validate_session()
 	{
